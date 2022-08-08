@@ -1,4 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:wallpaperapp/data/data.dart';
 import 'package:wallpaperapp/model/categoriesModel.dart';
@@ -16,14 +18,21 @@ class home extends StatefulWidget {
 class _homeState extends State<home> {
   List<CategoriesModel> categories = [];
 
-  getTrendingWallpapers() {
-    var response = http.get(
-        Uri.https("https://api.pexels.com/v1/curated?per_page=1"),
+  getTrendingWallpapers() async {
+    var response = await http.get(
+        Uri.https(
+            "https://api.pexels.com/v1/curated?query=coding&per page=15&page=1"),
         headers: {"Authorization": apiKey});
+
+    Map<String, dynamic> jsonData = jsonDecode(response.body);
+    jsonData["photos"].forEach((element) {
+      print(element);
+    });
   }
 
   @override
   void initState() {
+    getTrendingWallpapers();
     categories = getCategories();
     super.initState();
   }
