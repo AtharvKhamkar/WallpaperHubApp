@@ -40,7 +40,8 @@ class _homeState extends State<home> {
                 Icon(Icons.search),
               ],
             ),
-          )
+          ),
+          
         ],
       )),
     );
