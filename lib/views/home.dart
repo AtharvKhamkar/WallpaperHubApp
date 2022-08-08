@@ -55,14 +55,19 @@ class _homeState extends State<home> {
           SizedBox(
             height: 16,
           ),
-          ListView.builder(
-              itemCount: categories.length,
-              shrinkWrap: true,
-              itemBuilder: (context, index) {
-                return CategoriesTile(
-                    imgUrl: categories[index].ImageUrl,
-                    title: categories[index].categoriesName);
-              })
+          Container(
+            height: 80,
+            child: ListView.builder(
+                padding: EdgeInsets.symmetric(horizontal: 24),
+                itemCount: categories.length,
+                shrinkWrap: true,
+                scrollDirection: Axis.horizontal,
+                itemBuilder: (context, index) {
+                  return CategoriesTile(
+                      imgUrl: categories[index].ImageUrl,
+                      title: categories[index].categoriesName);
+                }),
+          )
         ],
       )),
     );
@@ -80,12 +85,26 @@ class CategoriesTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      margin: EdgeInsets.only(right: 4),
       child: Stack(children: <Widget>[
+        ClipRRect(
+            borderRadius: BorderRadius.circular(16),
+            child: Image.network(
+              imgUrl!,
+              height: 50,
+              width: 100,
+              fit: BoxFit.cover,
+            )),
         Container(
-          child: Image.network(imgUrl!),
-        ),
-        Container(
-          child: Text(title!),
+          color: Colors.black12,
+          height: 50,
+          width: 100,
+          alignment: Alignment.center,
+          child: Text(
+            title!,
+            style: TextStyle(
+                color: Colors.white, fontWeight: FontWeight.w500, fontSize: 16),
+          ),
         )
       ]),
     );
