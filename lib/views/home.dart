@@ -4,6 +4,7 @@ import 'package:wallpaperapp/data/data.dart';
 import 'package:wallpaperapp/model/categoriesModel.dart';
 
 import 'package:wallpaperapp/widget/widget.dart';
+import 'package:http/http.dart' as http;
 
 class home extends StatefulWidget {
   const home({super.key});
@@ -14,6 +15,13 @@ class home extends StatefulWidget {
 
 class _homeState extends State<home> {
   List<CategoriesModel> categories = [];
+
+  getTrendingWallpapers() {
+    var response = http.get(
+        Uri.https("https://api.pexels.com/v1/curated?per_page=1"),
+        headers: {"Authorization": apiKey});
+  }
+
   @override
   void initState() {
     categories = getCategories();
